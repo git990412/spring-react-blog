@@ -3,8 +3,6 @@ spring:
     virtual:
       enabled: true
   devtools:
-    livereload:
-      enabled: true
     restart:
       enabled: true
   datasource:
