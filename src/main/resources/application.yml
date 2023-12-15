@@ -5,6 +5,8 @@ spring:
   devtools:
     restart:
       enabled: true
+  profiles:
+    include: secret
   datasource:
     username: sa
     password: 

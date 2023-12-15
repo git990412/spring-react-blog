@@ -9,9 +9,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.ll.medium.global.security.jwt.JwtFilter;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+        @Bean
+        JwtFilter jwtFilter() {
+                return new JwtFilter();
+        }
+
         @Bean
         SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 return http
@@ -24,6 +35,7 @@ public class SecurityConfig {
                                                 .disable())
                                 .sessionManagement(sessionManagement -> sessionManagement
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
                                 .build();
         }
 
